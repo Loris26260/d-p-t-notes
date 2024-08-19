@@ -34,4 +34,27 @@
 
 ### Informations supplémentaires
 
-- **Cardinalité** : Précise le nombre minimum et maximum d'occurrences possibles entre les entités (ex. : un client peut passer plusieurs
+- **Cardinalité** : Précise le nombre minimum et maximum d'occurrences possibles entre les entités (ex. : un client peut passer plusieurs commande ne peut être passée que par un seul client).
+
+- **Contraintes d'intégrité** : 
+  - Assurent que les relations entre les entités respectent certaines règles.
+  - Par exemple, une commande doit toujours être associée à un client existant pour maintenir l'intégrité des données.
+
+---
+
+### Notes supplémentaires
+
+- **Importance de la modélisation** : 
+  - La modélisation des données est cruciale pour structurer les informations de manière cohérente et éviter les redondances.
+  - Elle permet également de clarifier les relations entre les différentes entités du système d’information.
+
+- **Outils utilisés** : 
+  - Les modèles conceptuels, comme le MCD, servent à visualiser et structurer les données avant leur implémentation dans une base de données.
+  - Ces modèles facilitent la compréhension des dépendances et des relations entre les entités, et aident à définir les clés primaires et les contraintes d'intégrité.
+
+- **Pratiques recommandées** :
+  - Toujours vérifier les dépendances fonctionnelles pour éviter les anomalies lors de la mise à jour des données.
+  - Documenter les relations et les contraintes dans le modèle pour garantir la cohérence et la clarté du système d’information.
+
+---
+
