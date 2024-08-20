@@ -57,4 +57,9 @@
   - Documenter les relations et les contraintes dans le modèle pour garantir la cohérence et la clarté du système d’information.
 
 ---
+a chaque fois qu'on passe du lcd au mld l'entité qui possède la cardinalité maximal = a 1 recevera l'indentifiant de la plus forte ex 1.1n 0.n 
 
+lister que ce qui ne sert suivre la nomenclature de la SGBBD
+
+tout doit être rédigé  
+Stable = entité
