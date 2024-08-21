@@ -1,0 +1,142 @@
+Date(Date)
+Vente(NumVente, #NumRecap, #Date, #NumProduit)
+Recap(NumRecap, #NumVente, PrixTotal, PoidsTotal)
+Selectionner(#NumVente, #NumProduit, Quantite)
+Type_Produit(NumProduit,#NumAnimal, #NumLegume, #NumFruit)
+Comprend(#NumProduit, #NumAnimal, Quantite)
+Inclus(#NumProduit,#NumLegume, Quantite)
+Possède(#NumProduit, #NumFruit, Quantite)
+Animal(NumAnimal,#NumTypeAnimal, PrixAnimal, PoidAnimal)S
+Legume(NumLegume,#NumTypeLegume, PrixLegume, PoidLegume)
+Fruits(NumFruit, #NumTypeFruit, PrixFruit, PoidsFruit)
+Type_Animal(NumTypeAnimal, Designation)
+Type_Legume(NumTypeLegume, Designation)
+Type_Fruit(NumTypeFruit, Designation)
+
+-- Suppression des tables existantes
+DROP TABLE IF EXISTS Date; 
+DROP TABLE IF EXISTS Type_Produit; 
+DROP TABLE IF EXISTS Type_Fruit; 
+DROP TABLE IF EXISTS Vente; 
+DROP TABLE IF EXISTS Recap; 
+DROP TABLE IF EXISTS Type_Legume; 
+DROP TABLE IF EXISTS Animal; 
+DROP TABLE IF EXISTS legume; 
+DROP TABLE IF EXISTS Fruits; 
+DROP TABLE IF EXISTS Type_Animal; 
+DROP TABLE IF EXISTS Possède; 
+DROP TABLE IF EXISTS Inclus; 
+DROP TABLE IF EXISTS Comprend; 
+DROP TABLE IF EXISTS selectionner;
+
+-- Création des tables
+CREATE TABLE Date (
+    Date_Date DATE NOT NULL, 
+    PRIMARY KEY (Date_Date)
+) ENGINE=InnoDB;
+
+CREATE TABLE Type_Produit (
+    NumProduit_Type_Produit BIGINT AUTO_INCREMENT NOT NULL, 
+    LibelleProduit_Type_Produit VARCHAR(255), 
+    PRIMARY KEY (NumProduit_Type_Produit)
+) ENGINE=InnoDB;
+
+CREATE TABLE Type_Fruit (
+    NumTypeFruit_Type_Fruit BIGINT AUTO_INCREMENT NOT NULL, 
+    Désignation_Type_Fruit CHAR(255), 
+    PRIMARY KEY (NumTypeFruit_Type_Fruit)
+) ENGINE=InnoDB;
+
+CREATE TABLE Vente (
+    NumVente_Vente BIGINT AUTO_INCREMENT NOT NULL, 
+    Date_Date DATE NOT NULL, 
+    recap_numrecap_recap BIGINT NOT NULL,
+    PRIMARY KEY (NumVente_Vente),
+    CONSTRAINT FK_Vente_Date_Date FOREIGN KEY (Date_Date) REFERENCES Date (Date_Date),
+    CONSTRAINT FK_Vente_recap_numrecap_recap FOREIGN KEY (recap_numrecap_recap) REFERENCES Recap (NumRecap_Recap)
+) ENGINE=InnoDB;
+
+CREATE TABLE Recap (
+    NumRecap_Recap BIGINT AUTO_INCREMENT NOT NULL, 
+    PrixTotal_Recap BIGINT, 
+    PoidsTotal_Recap BIGINT, 
+    vente_numvente_vente BIGINT NOT NULL,
+    PRIMARY KEY (NumRecap_Recap),
+    CONSTRAINT FK_Recap_vente_numvente_vente FOREIGN KEY (vente_numvente_vente) REFERENCES Vente (NumVente_Vente)
+) ENGINE=InnoDB;
+
+CREATE TABLE Type_Legume (
+    NumTypeLegume_Type_Legume BIGINT AUTO_INCREMENT NOT NULL, 
+    Désignation_Type_Legume CHAR(255), 
+    PRIMARY KEY (NumTypeLegume_Type_Legume)
+) ENGINE=InnoDB;
+
+CREATE TABLE Animal (
+    NumAnimal_Animal BIGINT AUTO_INCREMENT NOT NULL, 
+    PrixAnimal_Animal BIGINT, 
+    PoidAnimal_Animal BIGINT, 
+    NumTypeAnimal_Type_Animal BIGINT NOT NULL,
+    PRIMARY KEY (NumAnimal_Animal),
+    CONSTRAINT FK_Animal_NumTypeAnimal_Type_Animal FOREIGN KEY (NumTypeAnimal_Type_Animal) REFERENCES Type_Animal (NumTypeAnimal_Type_Animal)
+) ENGINE=InnoDB;
+
+CREATE TABLE legume (
+    NumLegume_legume BIGINT AUTO_INCREMENT NOT NULL, 
+    PrixLegume_legume BIGINT, 
+    PoidLegume_legume BIGINT, 
+    NumTypeLegume_Type_Legume BIGINT NOT NULL,
+    PRIMARY KEY (NumLegume_legume),
+    CONSTRAINT FK_legume_NumTypeLegume_Type_Legume FOREIGN KEY (NumTypeLegume_Type_Legume) REFERENCES Type_Legume (NumTypeLegume_Type_Legume)
+) ENGINE=InnoDB;
+
+CREATE TABLE Fruits (
+    NumFruit_Fruits BIGINT AUTO_INCREMENT NOT NULL, 
+    PrixFruit_Fruits BIGINT, 
+    PoidFruit_Fruits BIGINT, 
+    NumTypeFruit_Type_Fruit BIGINT NOT NULL,
+    PRIMARY KEY (NumFruit_Fruits),
+    CONSTRAINT FK_Fruits_NumTypeFruit_Type_Fruit FOREIGN KEY (NumTypeFruit_Type_Fruit) REFERENCES Type_Fruit (NumTypeFruit_Type_Fruit)
+) ENGINE=InnoDB;
+
+CREATE TABLE Type_Animal (
+    NumTypeAnimal_Type_Animal BIGINT AUTO_INCREMENT NOT NULL, 
+    Désignation_Type_Animal CHAR(255), 
+    PRIMARY KEY (NumTypeAnimal_Type_Animal)
+) ENGINE=InnoDB;
+
+CREATE TABLE Possède (
+    NumProduit_Type_Produit BIGINT NOT NULL, 
+    NumFruit_Fruits BIGINT NOT NULL, 
+    Quantité_Possède BIGINT, 
+    PRIMARY KEY (NumProduit_Type_Produit, NumFruit_Fruits),
+    CONSTRAINT FK_Possède_NumProduit_Type_Produit FOREIGN KEY (NumProduit_Type_Produit) REFERENCES Type_Produit (NumProduit_Type_Produit),
+    CONSTRAINT FK_Possède_NumFruit_Fruits FOREIGN KEY (NumFruit_Fruits) REFERENCES Fruits (NumFruit_Fruits)
+) ENGINE=InnoDB;
+
+CREATE TABLE Inclus (
+    NumProduit_Type_Produit BIGINT NOT NULL, 
+    NumLegume_legume BIGINT NOT NULL, 
+    Quantité_Inclus BIGINT, 
+    PRIMARY KEY (NumProduit_Type_Produit, NumLegume_legume),
+    CONSTRAINT FK_Inclus_NumProduit_Type_Produit FOREIGN KEY (NumProduit_Type_Produit) REFERENCES Type_Produit (NumProduit_Type_Produit),
+    CONSTRAINT FK_Inclus_NumLegume_legume FOREIGN KEY (NumLegume_legume) REFERENCES legume (NumLegume_legume)
+) ENGINE=InnoDB;
+
+CREATE TABLE Comprend (
+    NumProduit_Type_Produit BIGINT NOT NULL, 
+    NumAnimal_Animal BIGINT NOT NULL, 
+    Quantité_Comprend BIGINT, 
+    PRIMARY KEY (NumProduit_Type_Produit, NumAnimal_Animal),
+    CONSTRAINT FK_Comprend_NumProduit_Type_Produit FOREIGN KEY (NumProduit_Type_Produit) REFERENCES Type_Produit (NumProduit_Type_Produit),
+    CONSTRAINT FK_Comprend_NumAnimal_Animal FOREIGN KEY (NumAnimal_Animal) REFERENCES Animal (NumAnimal_Animal)
+) ENGINE=InnoDB;
+
+CREATE TABLE selectionner (
+    NumVente_Vente BIGINT NOT NULL, 
+    NumProduit_Type_Produit BIGINT NOT NULL, 
+    Quantité_selectionner BIGINT,
+    PRIMARY KEY (NumVente_Vente, NumProduit_Type_Produit),
+    CONSTRAINT FK_selectionner_NumVente_Vente FOREIGN KEY (NumVente_Vente) REFERENCES Vente (NumVente_Vente),
+    CONSTRAINT FK_selectionner_NumProduit_Type_Produit FOREIGN KEY (NumProduit_Type_Produit) REFERENCES Type_Produit (NumProduit_Type_Produit)
+) ENGINE=InnoDB;
+
